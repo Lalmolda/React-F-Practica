@@ -1,12 +1,14 @@
 import './LoginPage.css';
 import { useContext, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../shared/button';
 import { login } from './service';
 import { AuthContext } from './context';
-import { Navigate } from 'react-router-dom';
 
 function LoginPage()  {
-  const { onLogin,isLogged } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();  //used to navigate to the main page after login
+  const { onLogin } = useContext(AuthContext);
   const [rememberPass, setRememberPass] = useState(false);
   const [credentials, setCredentials] = useState({
     email: '',
@@ -22,6 +24,8 @@ function LoginPage()  {
 
     // Estoy logueado
     onLogin();
+    const to = location.state?.from?.pathname || '/';   //Navigates to path /
+    navigate(to);
     console.log("HE LOGEAD")
   };
 
@@ -52,11 +56,11 @@ function LoginPage()  {
   const buttonDisabled = !credentials.email || !credentials.password;
 
   
-  if(isLogged){
-    return (
-      <Navigate to="/adverts"></Navigate>
-    )
-  }else{
+  //if(isLogged){
+    //return (
+      //<Navigate to="/adverts"></Navigate>
+    //)
+  //}else{
   return (
     <div>
       <form className= "loginPage" onSubmit={handleSubmit}>
@@ -87,7 +91,7 @@ function LoginPage()  {
       </form>
     </div>
   );
-  }
+ // }
 }
 
 

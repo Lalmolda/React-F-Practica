@@ -27,12 +27,12 @@ function App({ isUserLogged }) {
     <AuthContext.Provider value={authValue}>
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/" element={<Navigate to="/adverts" />} />
       <Route
             path="/adverts"
             element={
               <RequireAuth>
-                <AdvertsPage />
+                      <AdvertsPage />
               </RequireAuth>
             }
       />

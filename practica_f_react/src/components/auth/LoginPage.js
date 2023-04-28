@@ -3,9 +3,10 @@ import { useContext, useState } from 'react';
 import Button from '../shared/button';
 import { login } from './service';
 import { AuthContext } from './context';
+import { Navigate } from 'react-router-dom';
 
 function LoginPage()  {
-  const { onLogin } = useContext(AuthContext);
+  const { onLogin,isLogged } = useContext(AuthContext);
   const [rememberPass, setRememberPass] = useState(false);
   const [credentials, setCredentials] = useState({
     email: '',
@@ -50,6 +51,12 @@ function LoginPage()  {
 
   const buttonDisabled = !credentials.email || !credentials.password;
 
+  
+  if(isLogged){
+    return (
+      <Navigate to="/adverts"></Navigate>
+    )
+  }else{
   return (
     <div>
       <form className= "loginPage" onSubmit={handleSubmit}>
@@ -80,7 +87,7 @@ function LoginPage()  {
       </form>
     </div>
   );
-
+  }
 }
 
 

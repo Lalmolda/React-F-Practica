@@ -1,10 +1,8 @@
-import RequireAuth from '../auth/RequireAuth';
 
 
 const Advert = ({ ... ad }) => {
     return(
     ad && 
-    <RequireAuth>
         <div>
             {ad.name}
             <br></br>
@@ -16,7 +14,6 @@ const Advert = ({ ... ad }) => {
             {ad.tags}
             <hr></hr>
             </div>
-        </RequireAuth>
 
     )
 }

@@ -5,7 +5,7 @@ import { AuthContext } from './context';
 const RequireAuth = ({ children }) => {
   const { isLogged } = useContext(AuthContext);
   const location = useLocation();
-  console.log("ENTRO EN REQUIREAUTH");
+  console.log("ENTRO EN REQUIREAUTH e ISLOGGED VALE "+isLogged);
   if (!isLogged) {
     console.log("ENTRO EN REQUIREAUTH E ISLOGGED ES FALSO");
 

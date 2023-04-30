@@ -6,6 +6,7 @@ import { login } from './service';
 import { AuthContext } from './context';
 
 function LoginPage()  {
+  const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();  //used to navigate to the main page after login
   const { onLogin } = useContext(AuthContext);
@@ -15,19 +16,23 @@ function LoginPage()  {
     password: '',
   });
 
-  console.log("RECIBO EN LOGINPAGE "+onLogin);
+  const resetError = () => {
+    setError(null);
+  };
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log("SOY EL VALUE DE REMEMBERPASS: "+rememberPass);
-    await login(credentials, rememberPass);
-
-    // Estoy logueado
-    onLogin();
-    const to = location.state?.from?.pathname || '/';   //Navigates to path /
-    navigate(to);
-    console.log("HE LOGEAD")
-  };
+    resetError();
+    try {
+      await login(credentials, rememberPass);
+      // Estoy logueado
+      onLogin();
+      const to = location.state?.from?.pathname || '/';   //Navigates to path /
+      navigate(to);
+    }catch (error) {
+      setError(error);
+    }
+  }
 
   const handleChange = event => {
     // if (event.target.name === 'email') {
@@ -83,12 +88,16 @@ function LoginPage()  {
           Log in
         </Button>
         <hr></hr>
-        recordar contraseña
+          recordar contraseña
         <input
           type="checkbox"
           onChange={handleCheckBox}
         />
       </form>
+      {error && 
+        error.message==401?
+          <div>Wrong username or password</div>
+          :error && <div>{error.message}</div>}
     </div>
   );
  // }

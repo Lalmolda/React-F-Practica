@@ -28,7 +28,6 @@ function App({ isUserLogged }) {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Navigate to="/adverts" />} />
-      <Route path="/adverts/:adId" element={<AdvertPage />} />
       <Route
             path="/adverts"
             element={
@@ -37,6 +36,16 @@ function App({ isUserLogged }) {
               </RequireAuth>
             }
       />
+      <Route
+            path="/adverts/:adId"
+            element={
+              <RequireAuth>
+                      <AdvertPage />
+              </RequireAuth>
+            }
+      />
+      <Route path="/404" element={<div>404 | Not found</div>} />
+      <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
     </AuthContext.Provider>
   );

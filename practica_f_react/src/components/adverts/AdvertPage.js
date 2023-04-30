@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getAd } from './service';
 
-const AdvertPage = ({id,name, price, sale, tags }) => {
+const AdvertPage = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -11,9 +11,16 @@ const AdvertPage = ({id,name, price, sale, tags }) => {
 
   useEffect(() => {
     getAd(params.adId)
-      .then(ad => setAd(ad))
-      }, 
-      [params.adId]);
+      .then(ad => setAd(ad)).
+      catch(error => {
+        if (error.message==404) {
+          console.log("ENTRO EN ERROR STATUS "+error.statusCode);
+          return navigate('/404');
+        }
+        console.log(error.message);
+        setError(error);
+      });
+    }, [params.adId]);
 
       //console.log("SOY AD DESPUES DE GETAD "+ ad.name);
 

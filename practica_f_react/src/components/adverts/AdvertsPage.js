@@ -3,7 +3,10 @@ import classNames from 'classnames';
 import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
 import { getAllAds } from './service';
-import { AuthContext } from '../auth/context';
+import { Link } from 'react-router-dom';
+import Advert from './Advert';
+import RequireAuth from '../auth/RequireAuth';
+
 
 
 const AdsPage = () => {
@@ -16,9 +19,10 @@ const AdsPage = () => {
         );
       }, []);
 
-      console.log(ads);
 
         return(
+             
+
             <div
             //   className={className}
             className={styles.AdvertsPage}
@@ -26,9 +30,13 @@ const AdsPage = () => {
             //     backgroundColor: theme === 'light' ? 'lightblue' : 'darkblue',
             //   }}
           >
-            <ul>
+            <ul> 
               {ads.map(ad => (
-                <li key={ad.id}>{ad.name}</li>
+                <li key={ad.id}>
+                     <Link to={`/adverts/${ad.id}`}>
+                        <Advert {...ad} />
+                    </Link>
+                </li>
               ))}
             </ul>
           </div>

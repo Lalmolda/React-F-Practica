@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { AuthContext } from './components/auth/context';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
-
+import AdvertPage from './components/adverts/AdvertPage';
 
 
 
@@ -28,6 +28,7 @@ function App({ isUserLogged }) {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Navigate to="/adverts" />} />
+      <Route path="/adverts/:adId" element={<AdvertPage />} />
       <Route
             path="/adverts"
             element={

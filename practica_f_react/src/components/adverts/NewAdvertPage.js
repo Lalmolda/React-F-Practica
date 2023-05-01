@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createTweet } from './service';
 import { useNavigate } from 'react-router-dom';
+import Button from '../shared/button';
 
 const MIN_CHARACTERS = 5;
 const MAX_CHARACTERS = 140;
@@ -32,7 +33,30 @@ const NewAdvertPage = () => {
   const characters = `${content.length} / ${MAX_CHARACTERS} characters`;
 
   return (
-    <div></div>
+    <div>
+      <form>
+        <label htmlFor="name">Nombre:</label>
+        <input type="text" id="name" name="name" required/>
+
+          <label htmlFor="transaction">Compra / Venta:</label>
+            <option value="compra">Compra</option>
+            <option value="venta">Venta</option>
+         
+        <label htmlFor="tags">Tags disponibles:</label>
+       
+          <option value="tag1">Tag 1</option>
+          <option value="tag2">Tag 2</option>
+          <option value="tag3">Tag 3</option>
+        
+
+        <label htmlFor="price">Precio:</label>
+        <input type="number" id="price" name="price" required/>
+
+        <label htmlFor="photo">Foto:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required/>
+        <Button/>
+      </form>
+    </div>
   );
 };
 

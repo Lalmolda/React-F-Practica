@@ -11,3 +11,8 @@ export const getAd = adId => {
   console.log("LLEGO A GETAD "+url);
   return client.get(url);
 };
+
+export const deletetAd = adId => {
+  const url = `${adsUrl}/${adId}`;
+  return client.delete(url);
+};

@@ -14,7 +14,6 @@ const Advert = ({ ... ad }) => {
             {ad.tags}
             <hr></hr>
             </div>
-
     )
 }
 

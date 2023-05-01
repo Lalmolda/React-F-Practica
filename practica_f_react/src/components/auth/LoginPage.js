@@ -4,12 +4,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../shared/button';
 import { login } from './service';
 import { AuthContext } from './context';
+import Header from '../shared/Header';
 
 function LoginPage()  {
+  //const { isLogged } = useAuth();
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();  //used to navigate to the main page after login
-  const { onLogin } = useContext(AuthContext);
+  const { onLogin, isLogged } = useContext(AuthContext);
   const [rememberPass, setRememberPass] = useState(false);
   const [credentials, setCredentials] = useState({
     email: '',
@@ -67,7 +69,12 @@ function LoginPage()  {
     //)
   //}else{
   return (
+    isLogged==true?
     <div>
+      <Header></Header>
+      You are already logged in
+    </div>
+    :<div>
       <form className= "loginPage" onSubmit={handleSubmit}>
       <h1>Log in to Wallapop</h1>
         <input
@@ -98,7 +105,7 @@ function LoginPage()  {
         error.message==401?
           <div>Wrong username or password</div>
           :error && <div>{error.message}</div>}
-    </div>
+    </div>   
   );
  // }
 }

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getAd, deletetAd } from './service';
 import Button from '../shared/button';
-import { Link } from 'react-router-dom';
+import Header from '../shared/Header';
 
 const AdvertPage = () => {
   const params = useParams();
@@ -62,6 +62,7 @@ const AdvertPage = () => {
   return (
     ad && 
     <div>
+      <Header></Header>
     {ad.name}
     <br></br>
     {ad.price}

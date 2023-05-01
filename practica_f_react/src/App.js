@@ -6,7 +6,7 @@ import { AuthContext } from './components/auth/context';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import RequireAuth from './components/auth/RequireAuth';
 import AdvertPage from './components/adverts/AdvertPage';
-
+import NewAdvertPage from './components/adverts/NewAdvertPage';
 
 
 function App({ isUserLogged }) {
@@ -16,9 +16,14 @@ function App({ isUserLogged }) {
     setIsLogged(true);
   };
 
+  const handleLogOut = () => {
+    setIsLogged(false);
+  };
+
   const authValue = {
-    isLogged: isLogged, 
-    onLogin: handleLogin,
+    isLogged: isLogged,
+    onlogOut: handleLogOut, 
+    onLogin: handleLogin
   };
 
   console.log("SOY AUTHVALUE "+authValue);
@@ -41,6 +46,14 @@ function App({ isUserLogged }) {
             element={
               <RequireAuth>
                       <AdvertPage />
+              </RequireAuth>
+            }
+      />
+       <Route
+            path="/adverts/new"
+            element={
+              <RequireAuth>
+                      <NewAdvertPage />
               </RequireAuth>
             }
       />

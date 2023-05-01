@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 import Advert from './Advert';
 import Button from '../shared/button';
 import { useNavigate } from 'react-router-dom';
+import Header from '../shared/Header';
 
 const EmptyList = () => (
   <div style={{ textAlign: 'center' }}>
+    <Header></Header>
     <p>No ads, post your ad!</p>
     <Button as={Link} variant="primary" to="/adverts/new">
       Create ad
@@ -86,6 +88,7 @@ const AdsPage = () => {
           ads.length===0?
             <EmptyList />
           :<div className={styles.AdvertsPage}>
+            <Header></Header>
             <ul> 
               {ads.map(ad => (
                 <li key={ad.id}>

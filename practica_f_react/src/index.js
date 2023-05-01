@@ -21,7 +21,7 @@ root.render(
       <BrowserRouter>
         <App isUserLogged={!!accessToken}/> 
     </BrowserRouter>
-  </React.StrictMode>
+    </React.StrictMode>
 );
 
 

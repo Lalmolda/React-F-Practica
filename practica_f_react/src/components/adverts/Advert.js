@@ -1,19 +1,17 @@
-
-
 const Advert = ({ ... ad }) => {
     return(
     ad && 
         <div>
-            {ad.name}
+            <span>Nombre: {ad.name}</span> 
             <br></br>
-            {ad.price}
+            <span>Precio: {ad.price}</span> 
             <br></br>
-            {ad.sale?<span> venta </span>
-            :<span> compra </span>}
+            {ad.sale?<span> En venta </span>
+            :<span> Se compra </span>}
             <br></br>
-            {ad.tags}
+            <span>Tags: {ad.tags}</span> 
             <hr></hr>
-            </div>
+        </div>
     )
 }
 

@@ -21,3 +21,4 @@ export const createAd = ad => {
   const url = adsUrl;
   return client.post(url, ad, {});
 };
+

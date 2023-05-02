@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../shared/button';
 import { createAd } from './service';
+import { Link } from 'react-router-dom';
 
-const MIN_CHARACTERS = 5;
-const MAX_CHARACTERS = 140;
 
 const NewAdvertPage = () => {
   const navigate = useNavigate();
@@ -13,18 +12,12 @@ const NewAdvertPage = () => {
   const [sale, setSale] = useState();
   const [tag, setTag] = useState([]);
   const [price, setPrice] = useState(0);
-
-  const formData = {
-    "name": name,
-    "sale": sale,
-    "price": price,
-    "tags": tag,
-  };
+  const [picture, setPicture] = useState();
 
   const handleName = event => {
     setName(event.target.value);
     console.log("SOY SETname ENTRO Y MI VALUE ES "+event.target.value);
-    console.log(formData)
+    //console.log(formData)
   };
 
   const handleSale = event => {
@@ -39,9 +32,8 @@ const NewAdvertPage = () => {
   };
 
   const handleTag = event => {
-    console.log("LLEGO A HANDLETAG")
-    const tagValue = event.target.value;
-    setTag([... tag, tagValue])
+    const tagValue = event.target.value;    
+    setTag([tagValue])
     console.log("EL VECTOR DE TAGS ES "+tag)
   }
 
@@ -49,17 +41,28 @@ const NewAdvertPage = () => {
     setPrice(event.target.value)
   }
 
+  const handlePicture = event => {
+    const picture = (event.target.files[0]);
+    console.log(picture)
+    setPicture(picture)
+  }
 
- /* useEffect(() => {
-    console.log("SOY SETCONTENT Y VALGO "+content);
-
-}, content);*/
 
   const handleSubmit = async event => {
     event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('sale', sale);
+    formData.append('price', price);
+    formData.append('tags', tag);
+    if(picture){
+      formData.append('photo', picture);
+    }
+
     try {
       const ad = await createAd( formData );
-      //navigate(`/tweets/${tweet.id}`);
+      navigate('/adverts/'+ad.id);
     } catch (error) {
       if (error.status === 401) {
         navigate('/login');
@@ -67,40 +70,41 @@ const NewAdvertPage = () => {
     }
   };
 
-  //const isDisabled = isLoading || content.length < MIN_CHARACTERS;
-  //const characters = `${content.length} / ${MAX_CHARACTERS} characters`;
-
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <form className="NewAdvertPage" onSubmit={handleSubmit}>
         <label htmlFor="name">Nombre: </label>
         <input type="text" id="name" name="name" onChange={handleName} required/>
-          <hr></hr>
-          <label htmlFor="transaction">Compra / Venta: </label>
-          Compra
-            <input type="radio" name="transaction" value="compra" onChange={handleSale} />
-          Venta
-            <input type="radio" name="transaction" value="venta" onChange={handleSale}/>
-         <hr></hr>
-        <label htmlFor="tags">Tags disponibles: </label>
         <br></br>
-        <select id="tags" name="tags" size="1" onChange={handleTag} required>
-            <option value="" disabled selected>Selecciona un tag</option>
+          Compra
+            <input type="radio" name="transaction" value="compra" onChange={handleSale} required/>
+          Venta
+            <input type="radio" name="transaction" value="venta" onChange={handleSale} required/>
+        <br></br>
+        <label htmlFor="tags">Tags disponibles: </label>
+        <select id="tags" name="tags" size="1" onChange={handleTag} required defaultValue={""}>
+            <option value="" disabled>Selecciona un tag</option>
             <option value="lifestyle">Lifestyle</option>
             <option value="mobile">Mobile</option>
             <option value="motor">Motor</option>
             <option value="work">Work</option>
         </select>
-        <hr></hr>
+        <br></br>
         <label htmlFor="price">Precio: </label>
         <input type="number"name="price" onChange={handlePrice} required/>
-        <hr></hr>
-        <label htmlFor="photo">Foto: </label>
         <br></br>
-        <input type="file" id="photo" name="photo" accept="image/*"/>
-        <hr></hr>
+        <label htmlFor="photo">Foto: </label>
+        <input type="file" name="picture" accept="image/*" onChange={handlePicture}/>
+        <br></br>
+        <br></br>
         <Button>Crear anuncio</Button>
       </form>
+      <div>
+      <br></br>
+        <Button as={Link} variant="primary" to="/adverts">
+          Ir a anuncios publicados
+        </Button>
+      </div>
     </div>
   );
 };

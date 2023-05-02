@@ -5,6 +5,7 @@ import Button from '../shared/button';
 import { login } from './service';
 import { AuthContext } from './context';
 import Header from '../shared/Header';
+import { Link } from 'react-router-dom';
 
 function LoginPage()  {
   //const { isLogged } = useAuth();
@@ -37,12 +38,6 @@ function LoginPage()  {
   }
 
   const handleChange = event => {
-    // if (event.target.name === 'email') {
-    //   setCredentials({ ...credentials, username: event.target.value });
-    // }
-    // if (event.target.name === 'password') {
-    //   setCredentials({ ...credentials, password: event.target.value });
-    // }
     setCredentials({
       ...credentials,
       [event.target.name]: event.target.value,
@@ -50,7 +45,6 @@ function LoginPage()  {
   };
 
   const handleCheckBox = event => {
-    //event.preventDefault();
     console.log(event.target.checked);
     if(event.target.checked){
       setRememberPass(true);
@@ -62,17 +56,17 @@ function LoginPage()  {
 
   const buttonDisabled = !credentials.email || !credentials.password;
 
-  
-  //if(isLogged){
-    //return (
-      //<Navigate to="/adverts"></Navigate>
-    //)
-  //}else{
   return (
     isLogged==true?
     <div>
       <Header></Header>
-      You are already logged in
+      Ya has iniciado sesión
+      <br></br>
+      <div>
+      <Button as={Link} variant="primary" to="/adverts/new">
+              Crea un nuevo anuncio
+      </Button>
+      </div>
     </div>
     :<div>
       <form className= "loginPage" onSubmit={handleSubmit}>

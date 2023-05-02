@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getAd, deletetAd } from './service';
 import Button from '../shared/button';
 import Header from '../shared/Header';
+import { Link } from 'react-router-dom';
 
 const AdvertPage = () => {
   const params = useParams();
@@ -15,9 +16,7 @@ const AdvertPage = () => {
   console.log("PARAMETROS "+params.adId);
 
   const handleRedirect =  () => {
-    setInterval(() => {
       return navigate('/adverts');
-    }, 3000);
 }
 
   const handleConfirmation =  event => {
@@ -42,7 +41,6 @@ const AdvertPage = () => {
     });
     setConfirmation(false);
     setAdDeleted(true);
-    //navigate('/'); //Redirecciono a home porque la api es tan rapida que no le da tiempo a actualizar adeverts y que no salga el eliminado
   }
 
   useEffect(() => {
@@ -50,10 +48,8 @@ const AdvertPage = () => {
       .then(ad => setAd(ad)).
       catch(error => {
         if (error.message==404) {
-          console.log("ENTRO EN ERROR STATUS "+error.statusCode);
           return navigate('/404');
         }
-        console.log(error.message);
         setError(error);
       });
     }, [params.adId]);
@@ -61,17 +57,17 @@ const AdvertPage = () => {
 
   return (
     ad && 
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <Header></Header>
-    {ad.name}
-    <br></br>
-    {ad.price}
-    <br></br>
-    {ad.sale?<span> venta </span>
-    :<span> compra </span>}
-    <br></br>
-    {ad.tags}
-    <br></br>
+      <span>Nombre: {ad.name}</span> 
+            <br></br>
+            <span>Precio: {ad.price}</span> 
+            <br></br>
+            {ad.sale?<span> En venta </span>
+            :<span> Se compra </span>}
+            <br></br>
+            <span>Tags: {ad.tags}</span> 
+            <hr></hr>
     {ad.photo!=null?
     <img src={ad.photo} width="100px" height="70px"></img>
     :<div>No hay foto</div>}
@@ -87,10 +83,15 @@ const AdvertPage = () => {
     </div>}
     {deleted &&
 
-      <div>Anuncio eliminado, redireccionando a anuncios en 3 segundos...
+      <div>Anuncio eliminado, redireccionando a anuncios en breve...
         {handleRedirect()}
       </div>
     }
+     <br></br>
+    <br></br>
+    <Button as={Link} variant="primary" to="/adverts">
+          Ir a anuncios publicados
+    </Button>
     </div> 
     //<Layout title="Tweet detail">{tweet && <div>{tweet.content}</div>}</Layout>
   );

@@ -1,5 +1,4 @@
 // import './styles.css';
-import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
 import { getAllAds } from './service';
 import { Link } from 'react-router-dom';
@@ -10,10 +9,9 @@ import Header from '../shared/Header';
 
 const EmptyList = () => (
   <div style={{ textAlign: 'center' }}>
-    <Header></Header>
-    <p>No ads, post your ad!</p>
+    <p>No hay anuncios, postea tu anuncio!</p>
     <Button as={Link} variant="primary" to="/adverts/new">
-      Create ad
+      Crea un nuevo anuncio
     </Button>
   </div>
 );
@@ -87,7 +85,8 @@ const AdsPage = () => {
           ads &&
           ads.length===0?
             <EmptyList />
-          :<div className={styles.AdvertsPage}>
+          :
+        <div style={{ textAlign: 'center' }}>
             <Header></Header>
             <ul> 
               {ads.map(ad => (
@@ -140,8 +139,13 @@ const AdsPage = () => {
             <Button type="submit" variant="primary" onClick={handleReset}>
               Resetea la búsqueda
             </Button>
+            <br></br>
+            <br></br>
+            <Button as={Link} variant="primary" to="/adverts/new">
+              ¿Crear un nuevo anuncio?
+            </Button>
           </form>
-          </div>
+        </div>
         );
       };
 export default AdsPage;

@@ -26,8 +26,6 @@ function App({ isUserLogged }) {
     onLogin: handleLogin
   };
 
-  console.log("SOY AUTHVALUE "+authValue);
-//onLogout: handleLogout,
   return (
     <AuthContext.Provider value={authValue}>
     <Routes>
@@ -63,7 +61,5 @@ function App({ isUserLogged }) {
     </AuthContext.Provider>
   );
 }
-//            <div className="App">
-  // <LoginPage onLogin={handleLogin} />
 
 export default App;

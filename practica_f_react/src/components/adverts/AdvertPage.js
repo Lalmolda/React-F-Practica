@@ -13,11 +13,9 @@ const AdvertPage = () => {
   const [confirmation, setConfirmation] = useState(false);
   const [deleted, setAdDeleted] = useState(false);
   
-  console.log("PARAMETROS "+params.adId);
-
   const handleRedirect =  () => {
       return navigate('/adverts');
-}
+  }
 
   const handleConfirmation =  event => {
       event.preventDefault();
@@ -27,7 +25,7 @@ const AdvertPage = () => {
   const handleRejection =  event => {
     event.preventDefault();
     setConfirmation(false);
-}
+  }
 
   const handleDelete =  async event => {
     event.preventDefault();
@@ -60,40 +58,42 @@ const AdvertPage = () => {
     <div style={{ textAlign: 'center' }}>
       <Header></Header>
       <span>Nombre: {ad.name}</span> 
-            <br></br>
-            <span>Precio: {ad.price}</span> 
-            <br></br>
-            {ad.sale?<span> En venta </span>
-            :<span> Se compra </span>}
-            <br></br>
-            <span>Tags: {ad.tags}</span> 
-            <hr></hr>
-    {ad.photo!=null?
-    <img src={ad.photo} width="100px" height="70px"></img>
-    :<div>No hay foto</div>}
-    <hr></hr>
-    <Button type="submit" variant="primary" onClick={handleConfirmation}>
-      Eliminar anuncio
-    </Button>
-    {confirmation && 
-    <div>
-      <p>Are you sure you want to delete?</p>
-          <button onClick={handleDelete}>Yes</button>
-          <button onClick={handleRejection}>No</button>
-    </div>}
-    {deleted &&
-
+        <br></br>
+        <span>Precio: {ad.price}</span> 
+        <br></br>
+          {ad.sale?
+            <span> En venta </span>
+            :<span> Se compra </span>
+          }
+        <br></br>
+        <span>Tags: {ad.tags}</span> 
+        <hr></hr>
+      {ad.photo!=null?
+        <img src={ad.photo} width="100px" height="70px"></img>
+        :<div>No hay foto</div>
+      }
+      <hr></hr>
+      <Button type="submit" variant="primary" onClick={handleConfirmation}>
+         Eliminar anuncio
+      </Button>
+      {confirmation && 
+        <div>
+          <p>Are you sure you want to delete?</p>
+            <button onClick={handleDelete}>Yes</button>
+            <button onClick={handleRejection}>No</button>
+        </div>
+      }
+      {deleted &&
       <div>Anuncio eliminado, redireccionando a anuncios en breve...
         {handleRedirect()}
       </div>
-    }
-     <br></br>
-    <br></br>
-    <Button as={Link} variant="primary" to="/adverts">
+      }
+      <br></br>
+      <br></br>
+      <Button as={Link} variant="primary" to="/adverts">
           Ir a anuncios publicados
-    </Button>
-    </div> 
-    //<Layout title="Tweet detail">{tweet && <div>{tweet.content}</div>}</Layout>
+      </Button>
+      </div> 
   );
 };
 

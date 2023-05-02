@@ -20,22 +20,20 @@ const AdsPage = () => {
     const navigate = useNavigate();
     const [searchValue, setSearch] = useState();
     const [searchRadioValue, setRadioValue] = useState(undefined);
-    const [ads, setAds] = useState([]); // lo defino como vacio el array, si lo defino null al llamar al array dara error al ser null.
-    //ads recive la promesa
+    const [ads, setAds] = useState([]); 
 
     const handleSubmit =  event => {
       event.preventDefault();
       const array = [];
       ads.forEach((ad) => {
-
-        //Controls that, if search value is empty, it only uses the sale state to search
+      //Controls that, if search value is empty, it only uses the sale state to search
         if(searchValue==undefined){
           if(searchRadioValue==undefined){
             array.push(ad);
           }  
           else{
             if(ad.sale == searchRadioValue){
-                array.push(ad);
+              array.push(ad);
             } 
           }
         }
@@ -45,11 +43,9 @@ const AdsPage = () => {
         }
         else{
           if(searchValue!="" && ad.name.toLowerCase().includes(searchValue) && ad.sale == searchRadioValue){
-              array.push(ad);
+            array.push(ad);
           } 
         }
-
-
       })
       setAds(array);
     }
@@ -80,22 +76,23 @@ const AdsPage = () => {
             setAds(ads),       
         );
     }, []);
-
-        return(
-          ads &&
-          ads.length===0?
-            <EmptyList />
-          :
+    return(
+      ads &&
+      ads.length===0?
+        <EmptyList />
+        :
         <div style={{ textAlign: 'center' }}>
-            <Header></Header>
+          <Header></Header>
             <ul> 
               {ads.map(ad => (
                 <li key={ad.id}>
-                     <Link to={`/adverts/${ad.id}`}>
-                        <Advert {...ad} />
-                    </Link>
+                  <Link to={`/adverts/${ad.id}`}>
+                    <Advert {...ad} />
+                  </Link>
                 </li>
-              ))}
+              )
+              )
+              }
             </ul>
             
           <form className= "searchForm">
@@ -146,6 +143,6 @@ const AdsPage = () => {
             </Button>
           </form>
         </div>
-        );
-      };
+      );
+    };
 export default AdsPage;

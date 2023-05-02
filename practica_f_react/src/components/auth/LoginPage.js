@@ -1,4 +1,3 @@
-import './LoginPage.css';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../shared/button';
@@ -8,10 +7,9 @@ import Header from '../shared/Header';
 import { Link } from 'react-router-dom';
 
 function LoginPage()  {
-  //const { isLogged } = useAuth();
   const [error, setError] = useState(null);
   const location = useLocation();
-  const navigate = useNavigate();  //used to navigate to the main page after login
+  const navigate = useNavigate();  
   const { onLogin, isLogged } = useContext(AuthContext);
   const [rememberPass, setRememberPass] = useState(false);
   const [credentials, setCredentials] = useState({
@@ -58,50 +56,49 @@ function LoginPage()  {
 
   return (
     isLogged==true?
-    <div>
-      <Header></Header>
-      Ya has iniciado sesión
-      <br></br>
       <div>
-      <Button as={Link} variant="primary" to="/adverts/new">
-              Crea un nuevo anuncio
-      </Button>
+        <Header></Header>
+          Ya has iniciado sesión
+        <br></br>
+        <div>
+          <Button as={Link} variant="primary" to="/adverts/new">
+            Crea un nuevo anuncio
+          </Button>
+        </div>
       </div>
-    </div>
-    :<div>
-      <form className= "loginPage" onSubmit={handleSubmit}>
-      <h1>Log in to Wallapop</h1>
-        <input
-          type="text"
-          name="email"
-          placeholder='Introduce your email'
-          onChange={handleChange}
-          value={credentials.email}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder='Introduce your password'
-          onChange={handleChange}
-          value={credentials.password}
-        />
-        <Button type="submit" variant="primary" disabled={buttonDisabled}>
-          Log in
-        </Button>
-        <hr></hr>
-          recordar contraseña
-        <input
-          type="checkbox"
-          onChange={handleCheckBox}
-        />
-      </form>
-      {error && 
-        error.message==401?
-          <div>Wrong username or password</div>
-          :error && <div>{error.message}</div>}
-    </div>   
+      :<div>
+        <form className= "loginPage" onSubmit={handleSubmit}>
+        <h1>Log in to Wallapop</h1>
+          <input
+            type="text"
+            name="email"
+            placeholder='Introduce your email'
+            onChange={handleChange}
+            value={credentials.email}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder='Introduce your password'
+            onChange={handleChange}
+            value={credentials.password}
+          />
+          <Button type="submit" variant="primary" disabled={buttonDisabled}>
+            Log in
+          </Button>
+          <hr></hr>
+            recordar contraseña
+          <input
+            type="checkbox"
+            onChange={handleCheckBox}
+          />
+        </form>
+        {error && 
+          error.message==401?
+            <div>Wrong username or password</div>
+            :error && <div>{error.message}</div>}
+      </div>   
   );
- // }
 }
 
 

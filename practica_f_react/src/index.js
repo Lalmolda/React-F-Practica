@@ -9,13 +9,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 
-const accessToken = storage.get('auth'); //calls get function in storage.js (utils)
+const accessToken = storage.get('auth'); 
 if (accessToken) {
   setAuthorizationHeader(accessToken);
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-//!! converts anything into a boolean value
 root.render(
   <React.StrictMode>
       <BrowserRouter>

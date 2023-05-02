@@ -3,15 +3,13 @@ import axios from 'axios';
 window.config = JSON.stringify(process.env);
 
 const client = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });
 
 client.interceptors.response.use(
   response => response.data,
   error => {
-    console.log(error)
     if (error.response) {
-      console.log(error.response.data.message)
       return Promise.reject({
         message: error.response.data.statusCode,
         ... error.response.data.message

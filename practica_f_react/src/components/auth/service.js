@@ -1,5 +1,3 @@
-import { useAuth } from './context';
-
 import client, {
     removeAuthorizationHeader,
     setAuthorizationHeader
